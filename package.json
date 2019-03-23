@@ -1,0 +1,24 @@
+{
+  "name": "myapp",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon --exec babel-node app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.4",
+    "mysql": "^2.13.0"
+  },
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "nodemon": "^1.18.10"
+  }
+}

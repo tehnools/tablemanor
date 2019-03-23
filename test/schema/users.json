@@ -1,0 +1,14 @@
+{
+    "users" : [
+        {
+            "id" : 1,
+            "username" : "noelsoong@live.com",
+            "password" : "secret",
+            "meta" : {
+                "type": "user@manor",
+                "image": "image@imageplace.com",
+                "attributes" : []
+            }
+        }
+    ]
+} 

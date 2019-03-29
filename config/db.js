@@ -1,16 +1,16 @@
+// Local Imports
 const mysql = require('mysql');
 
 exports.setupDatabase = function (done) {
     let con = mysql.createConnection({
-        host: process.env.SERVER_MYSQL_HOST,
+        host: process.env.HOST_NAME,
         user: process.env.SERVER_MYSQL_USERNAME,
         password: process.env.SERVER_MYSQL_PASSWORD,
         port: parseInt(process.env.SERVER_MYSQL_PORT),
-        database: 'tablemanor',
+        database: 'mysql',
         multipleStatements: true
     });
     con.connect();
-    console.log(process.env.SERVER_MYSQL_HOST);
     const CREATEDB = "CREATE DATABASE IF NOT EXISTS tablemanor";
     con.query(CREATEDB, (err) => {
         if (err) { throw err; process.exit(1); }

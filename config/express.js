@@ -1,16 +1,17 @@
-const express = require('express'),
-  bodyParser = require('body-parser');
-
-// const cookieParser = require('cookie-parser');
-// const session = require('express-session');
-
+// Standard Library Imports
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 module.exports = function () {
   const app = express();
   app.use(bodyParser.json());
+  app.use(session({ secret: 'password', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
-  require("../app/routes/user.routes.js")(app);
-  require("../app/routes/project.routes")(app);
+  // Routes
+  require("../app/routes/user.routes")(app);
+  // require("../app/routes/auth.routes")(app);
+  // require("../app/routes/home.routes")(app);
 
   return app;
 };

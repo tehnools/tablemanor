@@ -1,19 +1,28 @@
-const express = require('express'),
-    db = require('./config/db.js'),
-    cors = require('cors'),
-    dbBuilder = require('./dbBuilder.js');
+// Standard Library imports
+const express = require('./config/express.js');
+const cors = require('cors');
 
+// Local imports
+const db = require('./config/db.js');
+const dbBuilder = require('./dbBuilder.js');
 
+// Init express app
 const app = express();
+
+// Use CORS
 // app.use(cors);
 
+// Port Constant variable
 const PORT = parseInt(process.env.PORT);
 
+// Create Database
 db.setupDatabase((err) => {
     console.log('Seting Up Connection...')
     if (err) throw err;
 })
 
+
+// Conntect To database
 db.connect((err) => {
     console.log('Connecting... to PORT: ' + PORT)
     if (err) { throw err } else {
@@ -23,20 +32,18 @@ db.connect((err) => {
     }
 });
 
-
-const initTables = () => {
-    return new Promise((resolve) => {
-        dbBuilder.buildTables();
-    });
-}
-
-app.get('/',(req, res) =>{
-    res.send('Hello World!')
+// Create Tables
+dbBuilder.buildTables((err) => {
+    console.log("Buiilding Tables");
+    if (err) { throw err }
 });
 
-initTables().then(()=>{
-    console.log('Tables Completed');
-})
+
+// app.get('/', (req, res) => {
+//     res.send('Hello World!')
+// });
+
+// initTables();
 
 // db.connect(function(err){
 //     const app = express();

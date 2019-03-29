@@ -6,11 +6,17 @@
     "dev": "nodemon --exec babel-node app.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "cors": "^2.8.5",
     "express": "^4.15.3",
+    "express-session": "^1.15.6",
+    "jest": "^24.5.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.4",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "main": "index.js",
   "author": "",

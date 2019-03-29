@@ -1,70 +1,67 @@
+// Local Imports
 const db = require('./config/db.js');
 
-// exports.dummyData = function(){
-// };
+exports.buildTables = (done) => {
 
-exports.buildTables = async (done) => {
-
+    // Set Unique Checks to false
     const setUniqueKeyChecks = () => {
-        return new Promise((resolve) => {
-            let query = "SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;";
-            db.get().query(query, (err, rows) => {
-                if (err) {
-                    console.log({ "Error Setting up MYSQL in dbBuider.js": err });
-                } else {
-                    return resolve();
-                }
-            });
+        let query = "SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;";
+        db.get().query(query, (err) => {
+            if (err) {
+                return done(err);
+            }
         });
     }
 
+    // Set Foreign Key Checks to false
     const setForeignKeyChecks = () => {
-        return new Promise((resolve) => {
-            let query = "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;";
-            db.get().query(query, (err, rows) => {
-                if (err) {
-                    console.log({ "Error Setting up MYSQL in dbBuider.js": err });
-                } else {
-                    return resolve();
-                }
-            });
+        let query = "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;";
+        db.get().query(query, (err, rows) => {
+            if (err) {
+                return done(err);
+            }
         });
     }
 
+    // Set SQL mode prevent zero in date and division by 0
     const setSQLMode = () => {
-        return new Promise((resolve) => {
-            let query = "SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES, " +
-                "NO_ZERO_IN_DATE,NO_ZERO_DATE, " +
-                "ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION;'"
-        })
-    }
+        let query = "SET @OLD_SQL_MODE=@@SQL_MODE, "
+            + "SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,"
+            + "NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,"
+            + "NO_ENGINE_SUBSTITUTION';"
 
-    const buildUserTables = () => {
-        return new Promise((resolve) => {
-            let query = "CREATE TABLE IF NOT EXISTS tablemanor.user"
-                + "(user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-                + "email VARCHAR(255) NOT NULL,"
-                + "password VARCHAR(32) NOT NULL,"
-                + "name VARCHAR(45) NOT NULL,"
-                + "create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,"
-                + "update_time TIMESTAMP NULL,"
-                + "PRIMARY KEY (user_id),"
-                + "UNIQUE INDEX user_id_UNIQUE (user_id ASC) VISIBLE)";
-
-            db.get().query(query, (err) => {
-                if (err) {
-                    console.log({ "Error Creating Table in dbBuider.js": err });
-                } else {
-                    console.log('user table built');
-                    return resolve();
-                }
-            });
+        db.get().query(query, (err) => {
+            if (err) {
+                return done(err);
+            }
         });
     }
 
-    await setUniqueKeyChecks();
-    await setForeignKeyChecks();
-    await buildUserTables();
+
+    const buildUserTable = () => {
+        let query = "CREATE TABLE IF NOT EXISTS tablemanor.user"
+            + "(user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+            + "email VARCHAR(255) NOT NULL,"
+            + "password VARCHAR(32) NOT NULL,"
+            + "name VARCHAR(45) NOT NULL,"
+            + "create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,"
+            + "update_time TIMESTAMP NULL,"
+            + "PRIMARY KEY (user_id),"
+            + "token VARCHAR(255) NOT NULL,"
+            + "UNIQUE INDEX user_id_UNIQUE (user_id ASC) VISIBLE)";
+
+        db.get().query(query, (err) => {
+            if (err) {
+                return done(err);
+            }
+        });
+    }
+
+    setUniqueKeyChecks();
+    setForeignKeyChecks();
+    setSQLMode();
+    buildUserTable();
+    return done();
 };
 
 

@@ -6,17 +6,17 @@ const moment = require('moment');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.listAll = function(done){
+exports.listAll = function (done) {
     db.get().query("SELECT * FROM users", function (err, rows) {
         console.log('user model');
         if (err) {
-            return done({"500": "SERVER FAILED REQUEST"})
+            return done({ "500": "SERVER FAILED REQUEST" }, null)
         }
-        return done(rows);
+        return done(null, rows);
     });
 };
 
-exports.create = function(userData ,done){
+exports.create = function (userData, done) {
     let sql = "INSERT INTO users (email, name, password, create_time) VALUES ?";
 
     let query = [[
@@ -25,13 +25,16 @@ exports.create = function(userData ,done){
         bcrypt.hashSync(userData.password, 10),
         moment().unix()
     ]];
-    
+
     console.log(query);
     db.get().query(sql, [query], function (err, rows) {
         if (err) {
-            return done({"500": err})
+            return done({
+                code: 500,
+                message: err
+            }, null)
         } else {
-            return done(rows);
+            return done();
         }
     });
 };

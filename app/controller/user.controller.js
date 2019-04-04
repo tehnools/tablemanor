@@ -1,21 +1,23 @@
 const User = require('../models/users.model.js');
 
 exports.readAll = function (req, res) {
-    User.listAll(function (result) {
+    User.listAll(function (err, result) {
         console.log('user controler');
-        if (result['500']) { res.status(500); res.json(result) }
-        res.status(200);
-        res.json(result);
+        if (err) {
+            res.send({ "errorCode": err.code, "error": err.message })
+        } else {
+            res.send(result);
+        }
     });
 };
 
 
 exports.write = function (req, res) {
     let userData = req.body;
-    User.create(userData, function (result) {
+    User.create(userData, function (err) {
         res.setHeader("Content-Type", "application/json");
-        if (result['500']) {
-            res.send({ "errorCode": 500 , "error": result})
+        if (err) {
+            res.send({ "errorCode": err.code, "error": err.message })
         } else {
             res.send(201)
         }

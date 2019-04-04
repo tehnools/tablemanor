@@ -37,17 +37,17 @@ exports.buildTables = (done) => {
         });
     }
 
-
+    //TODO please add check for email unique
     const buildUserTable = () => {
-        let query = "CREATE TABLE IF NOT EXISTS tablemanor.user"
+        let query = "CREATE TABLE IF NOT EXISTS tablemanor.users"
             + "(user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
             + "email VARCHAR(255) NOT NULL,"
-            + "password VARCHAR(32) NOT NULL,"
+            + "password VARCHAR(255) NOT NULL,"
             + "name VARCHAR(45) NOT NULL,"
-            + "create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,"
+            + "token VARCHAR(255),"
+            + "create_time INT UNSIGNED NOT NULL,"
             + "update_time TIMESTAMP NULL,"
             + "PRIMARY KEY (user_id),"
-            + "token VARCHAR(255) NOT NULL,"
             + "UNIQUE INDEX user_id_UNIQUE (user_id ASC) VISIBLE)";
 
         db.get().query(query, (err) => {

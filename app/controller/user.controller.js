@@ -2,7 +2,9 @@ const User = require('../models/users.model.js');
 
 exports.readAll = function (req, res) {
     User.listAll(function (err, result) {
-        console.log('user controler');
+        res.set({
+            "Content-Type": "application/json"
+        });
         if (err) {
             res.send({ "errorCode": err.code, "error": err.message })
         } else {

@@ -6,7 +6,7 @@ exports.readAll = function (req, res) {
             "Content-Type": "application/json"
         });
         if (err) {
-            res.send({ "errorCode": err.code, "error": err.message })
+            res.send(500, err)
         } else {
             res.send(result);
         }
@@ -19,7 +19,7 @@ exports.write = function (req, res) {
     User.create(userData, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
-            res.send({ "errorCode": err.code, "error": err.message })
+            res.send(500, err)
         } else {
             res.send(201)
         }

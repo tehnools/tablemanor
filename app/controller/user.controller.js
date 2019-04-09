@@ -1,6 +1,6 @@
 const User = require('../models/users.model.js');
 
-exports.readAll = function (req, res) {
+exports.listUsers = function (req, res) {
     User.listAll(function (err, result) {
         res.set({
             "Content-Type": "application/json"
@@ -13,10 +13,36 @@ exports.readAll = function (req, res) {
     });
 };
 
+exports.selectUser = function (req, res) {
+    let data = req.params;
 
-exports.write = function (req, res) {
+    User.select(data, function (err, result) {
+        res.set({
+            "Content-Type": "application/json"
+        });
+        if (err) {
+            res.send(500, err)
+        } else {
+            res.send(result);
+        }
+    });
+};
+
+exports.createUser = function (req, res) {
     let userData = req.body;
     User.create(userData, function (err) {
+        res.setHeader("Content-Type", "application/json");
+        if (err) {
+            res.send(500, err)
+        } else {
+            res.send(201)
+        }
+    });
+};
+
+exports.overwrite = function (req, res) {
+    let userData = req.body;
+    User.update(userData, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
             res.send(500, err)

@@ -30,6 +30,19 @@ exports.generateJWT = function (id, email) {
 
 exports.listAll = function (done) {
     db.get().query("SELECT * FROM users", function (err, rows) {
+        console.log('select all');
+        if (err) {
+            return done(err)
+        }
+        return done(null, rows);
+    });
+};
+
+exports.select = function (data ,done) {
+    let userId = data.id;
+    let query = "SELECT * FROM users where user_id=?";
+    console.log("get a user: "+ query)
+    db.get().query(query, [userId],function (err, rows) {
         console.log('user model');
         if (err) {
             return done(err)
@@ -39,9 +52,9 @@ exports.listAll = function (done) {
 };
 
 exports.create = function (userData, done) {
-    let sql = "INSERT INTO users (email, name, password, create_time) VALUES ?";
+    let query = "INSERT INTO users (email, name, password, create_time) VALUES ?";
 
-    let query = [[
+    let  values = [[
         userData.email,
         userData.name,
         bcrypt.hashSync(userData.password, 10), // hash password
@@ -49,7 +62,20 @@ exports.create = function (userData, done) {
     ]];
 
     console.log(query);
-    db.get().query(sql, [query], function (err, rows) {
+    db.get().query(sql, [values], function (err, rows) {
+        if (err) {
+            return done(err)
+        } else {
+            return done();
+        }
+    });
+};
+
+
+exports.update = function (data, done) {
+    let query = "UPDATE users SET email=?, password=?, name=?, update_time=? WHERE user_id=?";
+
+    db.get().query(query, [user_id], function (err, rows) {
         if (err) {
             return done(err)
         } else {

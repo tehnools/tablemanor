@@ -28,7 +28,7 @@ const localStrategy = new LocalStrategy({
 
 const jwtStrategy = new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.PUBLIC_KEY
+  secretOrKey: process.env.SECRET_OR_KEY
 }, function (jwt_payload, done) {
   if (moment().unix() > jwt_payload.exp) {
     return done(null, false, { message: 'Login expired.' })

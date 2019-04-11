@@ -16,13 +16,14 @@ exports.login = function (req, res) {
                 exp: moment().add(5, 'hours').unix(),
                 iat: moment().unix()
             }
-                const token = jwt.sign(payload, process.env.SECRET_OR_KEY);
-                res.send(token);
-            }).catch(err => {
-                return res.status(401).send({ err: err })
-            });
-        })
+            const token = jwt.sign(payload, process.env.SECRET_OR_KEY);
+            res.send(token);
+        } else {
+            return res.status(400).send()
+        }
+    });
 };
+
 
 
 exports.logout = function (req, res) {

@@ -6,5 +6,5 @@ module.exports = (app) => {
         // .post(Auth.login)
         .post(Auth.login);
     app.route('/logout')
-         .post(Auth.logout);
+         .post(passport.authenticate('jwt', { session: false }), Auth.logout);
 }

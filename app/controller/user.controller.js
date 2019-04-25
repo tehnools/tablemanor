@@ -2,9 +2,6 @@ const User = require('../models/users.model.js');
 
 exports.listUsers = function (req, res) {
     User.listAll(function (err, result) {
-        res.set({
-            "Content-Type": "application/json"
-        });
         if (err) {
             res.status(500).send(err);
         } else {
@@ -18,9 +15,6 @@ exports.selectUser = function (req, res) {
     let data = req.params;
 
     User.select(data, function (err, result) {
-        res.set({
-            "Content-Type": "application/json"
-        });
         if (err) {
             res.status(500).send(err);
         } else {

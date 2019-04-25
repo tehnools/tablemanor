@@ -37,6 +37,7 @@ exports.listAll = function (done) {
     });
 };
 
+
 exports.select = function (data ,done) {
     let userId = data.id;
     let sql = "SELECT * FROM users where user_id=?";
@@ -94,3 +95,15 @@ exports.update = function (data, userId, done) {
     });
 };
 
+
+exports.remove = function(userId, done){
+    let sql = "DELETE FROM users WHERE user_id=?";
+
+    db.get().query(sql, userId, function(err){
+        if (err) {
+            return done(err)
+        } else{
+            return done();
+        }
+    });
+};

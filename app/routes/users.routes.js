@@ -9,5 +9,7 @@ module.exports = (app) => {
         .get(passport.authenticate('jwt', { session: false }),
             Users.selectUser)
         .put(passport.authenticate('jwt', { session: false }),
-        Users.overwrite);
+        Users.overwrite)
+        .delete(passport.authenticate('jwt', { session: false }),
+        Users.delete);
 }

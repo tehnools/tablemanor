@@ -30,9 +30,12 @@ const jwtStrategy = new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET_OR_KEY
 }, function (jwt_payload, done) {
+  // Expiration Check
   if (moment().unix() > jwt_payload.exp) {
     return done(null, false, { message: 'Login expired.' })
   }
+
+  // Select User
   let query = "SELECT * FROM Users where user_id=?";
   db.get().query(query, [jwt_payload.sub], function (err, rows) {
     if (err) {

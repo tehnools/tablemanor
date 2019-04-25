@@ -68,14 +68,28 @@ exports.create = function (data, done) {
 };
 
 
-exports.update = function (data, done) {
-    let query = "UPDATE users SET email=?, password=?, name=?, update_time=? WHERE user_id=?";
+exports.update = function (data, userId, done) {
+    let sql = "UPDATE users SET  email=?, password=?, name=?, update_time=? WHERE user_id=?";
+    let values = [
+        data.email,
+        data.password,
+        data.name,
+        moment().unix(),
+        userId
+    ];
 
-    db.get().query(query, [user_id], function (err, rows) {
+    db.get().query(sql, values, function (err, rows, fields) {
+        console.log(rows,fields)
         if (err) {
             return done(err)
         } else {
-            return done();
+            let newUserData = {
+                email: values[0],
+                password: values[1],
+                name : values[2],
+                update_time: values[3]
+            }
+            return done(null, newUserData);
         }
     });
 };

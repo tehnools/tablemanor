@@ -4,7 +4,6 @@ const db = require('../../config/db.js');
 // External Imports
 const moment = require('moment');
 const bcrypt = require('bcrypt');
-// const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 exports.validatePassword = function (password, hash) {

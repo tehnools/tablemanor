@@ -45,7 +45,7 @@ exports.buildTables = (done) => {
             + "password VARCHAR(255) NOT NULL,"
             + "name VARCHAR(45) NOT NULL,"
             + "create_time INT UNSIGNED NOT NULL,"
-            + "update_time TIMESTAMP NULL,"
+            + "update_time INT NULL,"
             + "PRIMARY KEY (user_id),"
             + "UNIQUE INDEX user_id_UNIQUE (user_id ASC) VISIBLE)";
 

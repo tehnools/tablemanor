@@ -13,6 +13,7 @@ exports.listUsers = function (req, res) {
     });
 };
 
+
 exports.selectUser = function (req, res) {
     let data = req.params;
 
@@ -28,6 +29,7 @@ exports.selectUser = function (req, res) {
     });
 };
 
+
 exports.createUser = function (req, res) {
     let userData = req.body;
     User.create(userData, function (err) {
@@ -40,6 +42,7 @@ exports.createUser = function (req, res) {
     });
 };
 
+
 exports.overwrite = function (req, res) {    
     User.update(req.body, req.user.user_id, function (err, result) {
         res.setHeader("Content-Type", "application/json");
@@ -47,6 +50,18 @@ exports.overwrite = function (req, res) {
             res.send(500, err)
         } else {
             res.send(200, result)
+        }
+    });
+};
+
+
+exports.delete = function (req, res) {  
+    User.remove(req.user.user_id, function (err) {
+        res.setHeader("Content-Type", "application/json");
+        if (err) {
+            res.send(500, err)
+        } else {
+            res.send(204)
         }
     });
 };

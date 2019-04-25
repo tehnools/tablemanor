@@ -40,14 +40,13 @@ exports.createUser = function (req, res) {
     });
 };
 
-exports.overwrite = function (req, res) {
-    let userData = req.body;
-    User.update(userData, function (err) {
+exports.overwrite = function (req, res) {    
+    User.update(req.body, req.user.user_id, function (err, result) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
             res.send(500, err)
         } else {
-            res.send(201)
+            res.send(200, result)
         }
     });
 };

@@ -49,17 +49,15 @@ exports.select = function (data ,done) {
     });
 };
 
-exports.create = function (userData, done) {
-    let query = "INSERT INTO users (email, name, password, create_time) VALUES ?";
+exports.create = function (data, done) {
+    let sql = "INSERT INTO users (email, name, password, create_time) VALUES ?";
 
     let  values = [[
-        userData.email,
-        userData.name,
-        bcrypt.hashSync(userData.password, 10), // hash password
+        data.email,
+        data.name,
+        bcrypt.hashSync(data.password, 10),
         moment().unix()
     ]];
-
-    console.log(query);
     db.get().query(sql, [values], function (err, rows) {
         if (err) {
             return done(err)

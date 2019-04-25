@@ -6,9 +6,9 @@ exports.listUsers = function (req, res) {
             "Content-Type": "application/json"
         });
         if (err) {
-            res.send(500, err)
+            res.status(500).send(err);
         } else {
-            res.send(result);
+            res.status(200).send(result);
         }
     });
 };
@@ -22,9 +22,9 @@ exports.selectUser = function (req, res) {
             "Content-Type": "application/json"
         });
         if (err) {
-            res.send(500, err)
+            res.status(500).send(err);
         } else {
-            res.send(result);
+            res.status(200).send(result);
         }
     });
 };
@@ -35,9 +35,9 @@ exports.createUser = function (req, res) {
     User.create(userData, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
-            res.send(500, err)
+            res.status(500).send(err);
         } else {
-            res.send(201)
+            res.sendStatus(201);
         }
     });
 };
@@ -47,9 +47,9 @@ exports.overwrite = function (req, res) {
     User.update(req.body, req.user.user_id, function (err, result) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
-            res.send(500, err)
+            res.status(500).send(err);
         } else {
-            res.send(200, result)
+            res.status(200).send(result);
         }
     });
 };
@@ -59,9 +59,9 @@ exports.delete = function (req, res) {
     User.remove(req.user.user_id, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
-            res.send(500, err)
+            res.status(500).send(err);
         } else {
-            res.send(204)
+            res.sendStatus(204)
         }
     });
 };

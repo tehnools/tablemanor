@@ -44,7 +44,6 @@ exports.buildTables = (done) => {
             + "email VARCHAR(255) NOT NULL,"
             + "password VARCHAR(255) NOT NULL,"
             + "name VARCHAR(45) NOT NULL,"
-            + "token VARCHAR(255),"
             + "create_time INT UNSIGNED NOT NULL,"
             + "update_time TIMESTAMP NULL,"
             + "PRIMARY KEY (user_id),"

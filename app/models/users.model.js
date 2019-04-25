@@ -39,9 +39,8 @@ exports.listAll = function (done) {
 
 exports.select = function (data ,done) {
     let userId = data.id;
-    let query = "SELECT * FROM users where user_id=?";
-    console.log("get a user: "+ query)
-    db.get().query(query, [userId],function (err, rows) {
+    let sql = "SELECT * FROM users where user_id=?";
+    db.get().query(sql, [userId],function (err, rows) {
         console.log('user model');
         if (err) {
             return done(err)

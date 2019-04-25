@@ -6,7 +6,8 @@ module.exports = (app) => {
         .get(Users.listUsers)
         .post(Users.createUser);
     app.route('/users/v1/users/:id')
-        .get(passport.authenticate('jwt', {session : false}),
-            Users.selectUser
-        );
+        .get(passport.authenticate('jwt', { session: false }),
+            Users.selectUser)
+        .put(passport.authenticate('jwt', { session: false }),
+        Users.overwrite);
 }

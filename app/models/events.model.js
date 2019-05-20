@@ -46,6 +46,7 @@ exports.select = function (event_id, done) {
 exports.update = function (data, done) {
     let sql = "UPDATE events SET ";
     let columns = [];
+    let values = [];
 
     // Add columns that exist in Data
     if (data.name) columns.push({ name: "name", value: data.name });
@@ -55,12 +56,11 @@ exports.update = function (data, done) {
 
     // Add columns to be updated
     for (let column of columns) {
-        sql += `${column.name} =  "${column.value}", `;
+        sql += `${column.name} =  ?, `;
+        values.push(column.value);
     }
     sql += `update_time = ${moment().unix()} WHERE id = ?`;
-
-    db.get().query(sql, data.id, (err, rows) => {
-        console.log(err)
+    db.get().query(sql, [...values, data.id], (err, rows) => {
         if (err) {
             return done(err);
         } else {

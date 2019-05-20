@@ -13,7 +13,6 @@ exports.listUsers = function (req, res) {
 
 exports.selectUser = function (req, res) {
     let data = req.params;
-
     User.select(data, function (err, result) {
         if (err) {
             res.status(500).send(err);
@@ -37,7 +36,7 @@ exports.createUser = function (req, res) {
 };
 
 
-exports.overwrite = function (req, res) {    
+exports.overwrite = function (req, res) {
     User.update(req.body, req.user.id, function (err, result) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
@@ -49,7 +48,7 @@ exports.overwrite = function (req, res) {
 };
 
 
-exports.delete = function (req, res) {  
+exports.delete = function (req, res) {
     User.remove(req.user.id, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {

@@ -25,7 +25,9 @@ db.setupDatabase((err) => {
 // Conntect To database
 db.connect((err) => {
     console.log('Connecting... to PORT: ' + PORT)
-    if (err) { throw err } else {
+    if (err) { 
+        throw err
+     } else {
         app.listen(PORT, () => {
             console.log('Server running on port: ' + PORT);
         });

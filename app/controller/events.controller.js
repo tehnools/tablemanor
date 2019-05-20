@@ -12,8 +12,16 @@ exports.listEvents = function (req, res) {
     })
 }
 
-    console.log(data)
-    Event.create(data, (err) => {
+exports.selectEvent = function (req, res) {
+    Event.select(req.params.id, (err, result)=>{
+        console.log(result)
+        if (err){
+            res.status(500).send(err);
+        } else{
+            res.status(200).send(result);
+        }
+    })
+}
         if (err) {
             res.status(500).send(err);
         } else {

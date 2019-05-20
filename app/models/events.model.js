@@ -30,3 +30,14 @@ exports.create = function (data, done) {
         }
     })
 }
+
+exports.select = function (event_id, done) {
+    let sql = "SELECT * FROM EVENTS WHERE id=?";
+    db.get().query(sql, event_id, (err, rows) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done(null, rows[0])
+        };
+    });
+}

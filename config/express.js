@@ -23,6 +23,7 @@ module.exports = function () {
   // Routes
   require("../app/routes/users.routes")(app);
   require("../app/routes/auth.routes")(app);
+  require("../app/routes/events.routes")(app);
   require('./passport');
 
   // require("../app/routes/home.routes")(app);

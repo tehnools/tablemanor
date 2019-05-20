@@ -40,9 +40,8 @@ exports.listAll = function (done) {
 
 exports.select = function (data ,done) {
     let userId = data.id;
-    let sql = "SELECT * FROM users where user_id=?";
+    let sql = "SELECT * FROM users where id=?";
     db.get().query(sql, [userId],function (err, rows) {
-        console.log('user model');
         if (err) {
             return done(err)
         }
@@ -70,7 +69,7 @@ exports.create = function (data, done) {
 
 
 exports.update = function (data, userId, done) {
-    let sql = "UPDATE users SET  email=?, password=?, name=?, update_time=? WHERE user_id=?";
+    let sql = "UPDATE users SET  email=?, password=?, name=?, update_time=? WHERE id=?";
     let values = [
         data.email,
         data.password,
@@ -97,7 +96,7 @@ exports.update = function (data, userId, done) {
 
 
 exports.remove = function(userId, done){
-    let sql = "DELETE FROM users WHERE user_id=?";
+    let sql = "DELETE FROM users WHERE id=?";
 
     db.get().query(sql, userId, function(err){
         if (err) {

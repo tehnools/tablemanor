@@ -43,14 +43,14 @@ exports.buildTables = (done) => {
     //TODO please add check for email unique
     const buildUserTable = () => {
         let sql = "CREATE TABLE IF NOT EXISTS tablemanor.users"
-            + "(user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+            + "(id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
             + "email VARCHAR(255) NOT NULL,"
             + "password VARCHAR(255) NOT NULL,"
             + "name VARCHAR(45) NOT NULL,"
             + "create_time INT UNSIGNED NOT NULL,"
             + "update_time INT NULL,"
-            + "PRIMARY KEY (user_id),"
-            + "UNIQUE INDEX user_id_UNIQUE (user_id ASC) VISIBLE)";
+            + "PRIMARY KEY (id),"
+            + "UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE)";
 
         db.get().query(sql, (err) => {
             if (err) {
@@ -61,17 +61,17 @@ exports.buildTables = (done) => {
 
     const buildEventsTable = () => {
         const sql = "CREATE TABLE IF NOT EXISTS tablemanor.events ( "
-            + "event_id INT UNSIGNED NOT NULL AUTO_INCREMENT, "
+            + "id INT UNSIGNED NOT NULL AUTO_INCREMENT, "
             + "name VARCHAR(45) NOT NULL,"
             + "create_time INT UNSIGNED NOT NULL, "
             + "update_time INT UNSIGNED NULL, "
             + "user_id INT UNSIGNED NOT NULL, "
-            + "PRIMARY KEY (event_id),"
+            + "PRIMARY KEY (id),"
             + "INDEX user_id_idx (user_id ASC) VISIBLE, "
-            + "UNIQUE INDEX event_id_UNIQUE (event_id ASC) VISIBLE, "
+            + "UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE, "
             + "CONSTRAINT user_id "
             + "FOREIGN KEY (user_id) "
-            + "REFERENCES tablemanor.users (user_id) "
+            + "REFERENCES tablemanor.users (id) "
             + "ON DELETE CASCADE "
             + "ON UPDATE CASCADE) "
             + "ENGINE = InnoDB "

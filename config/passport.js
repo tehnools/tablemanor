@@ -36,7 +36,7 @@ const jwtStrategy = new JWTStrategy({
   }
 
   // Select User
-  let query = "SELECT * FROM Users where user_id=?";
+  let query = "SELECT * FROM Users where id=?";
   db.get().query(query, [jwt_payload.sub], function (err, rows) {
     if (err) {
       return done({ "500": "SERVER FAILED REQUEST" })
@@ -57,7 +57,7 @@ passport.serializeUser(function (user, done) {
 
 
 passport.deserializeUser(function (id, done) {
-  let query = "SELECT * FROM Users where user_id=?";
+  let query = "SELECT * FROM Users where id=?";
 
   db.get().query(query, [id], function (err, rows) {
     return done(err, rows[0])

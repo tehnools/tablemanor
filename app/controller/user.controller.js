@@ -38,7 +38,7 @@ exports.createUser = function (req, res) {
 
 
 exports.overwrite = function (req, res) {    
-    User.update(req.body, req.user.user_id, function (err, result) {
+    User.update(req.body, req.user.id, function (err, result) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
             res.status(500).send(err);
@@ -50,7 +50,7 @@ exports.overwrite = function (req, res) {
 
 
 exports.delete = function (req, res) {  
-    User.remove(req.user.user_id, function (err) {
+    User.remove(req.user.id, function (err) {
         res.setHeader("Content-Type", "application/json");
         if (err) {
             res.status(500).send(err);

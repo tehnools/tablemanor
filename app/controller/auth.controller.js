@@ -14,7 +14,7 @@ exports.login = function (req, res) {
         const result = rows[0];
         if (result.passport === req.body.passport && result.id) {
             const payload = {
-                sub: result.user_id,
+                sub: result.id,
                 iat: moment().unix()
             }
             const token = jwt.sign(payload, process.env.SECRET_OR_KEY,{expiresIn: '1d'});

@@ -22,10 +22,24 @@ exports.selectEvent = function (req, res) {
         }
     })
 }
+
+exports.createEvent = function (req, res) {
+    Event.create(req.body, (err) => {
         if (err) {
             res.status(500).send(err);
         } else {
             res.status(201).send();
+        }
+    });
+}
+
+
+exports.updateEvent = function (req, res) {
+    Event.update(req.body.event, (err, results) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send();
         }
     });
 }

@@ -12,7 +12,7 @@ exports.login = function (req, res) {
     db.get().query(sql, [req.body.email], (err, rows) => {
         if (err) { res.status(500).send(err) }
         const result = rows[0];
-        if (result.passport == req.body.passport) {
+        if (result.passport === req.body.passport && result.id) {
             const payload = {
                 sub: result.user_id,
                 iat: moment().unix()

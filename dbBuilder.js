@@ -63,6 +63,7 @@ exports.buildTables = (done) => {
         const sql = "CREATE TABLE IF NOT EXISTS tablemanor.events ( "
             + "id INT UNSIGNED NOT NULL AUTO_INCREMENT, "
             + "name VARCHAR(45) NOT NULL,"
+            + "type VARCHAR(45) NOT NULL,"
             + "create_time INT UNSIGNED NOT NULL, "
             + "update_time INT UNSIGNED NULL, "
             + "user_id INT UNSIGNED NOT NULL, "

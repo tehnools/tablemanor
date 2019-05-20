@@ -3,7 +3,6 @@ const passport = require("passport");
 
 module.exports = (app) => {
     app.route('/login')
-        // .post(Auth.login)
         .post(Auth.login);
     app.route('/logout')
          .post(passport.authenticate('jwt', { session: false }), Auth.logout);

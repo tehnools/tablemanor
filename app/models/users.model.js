@@ -29,7 +29,6 @@ exports.generateJWT = function (id, email) {
 
 exports.listAll = function (done) {
     db.get().query("SELECT * FROM users", function (err, rows) {
-        console.log('select all');
         if (err) {
             return done(err)
         }
@@ -79,7 +78,6 @@ exports.update = function (data, userId, done) {
     ];
 
     db.get().query(sql, values, function (err, rows, fields) {
-        console.log(rows,fields)
         if (err) {
             return done(err)
         } else {

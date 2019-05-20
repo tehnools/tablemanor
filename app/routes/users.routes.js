@@ -5,11 +5,11 @@ module.exports = (app) => {
     app.route('/users/v1/users')
         .get(Users.listUsers)
         .post(Users.createUser);
-    app.route('/users/v1/users/:id')
+    app.route('/users/v1/user/:id')
         .get(passport.authenticate('jwt', { session: false }),
             Users.selectUser)
         .put(passport.authenticate('jwt', { session: false }),
-        Users.overwrite)
+            Users.overwrite)
         .delete(passport.authenticate('jwt', { session: false }),
-        Users.delete);
+            Users.delete);
 }

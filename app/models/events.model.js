@@ -3,10 +3,10 @@ const db = require('../../config/db.js');
 // External Imports
 const moment = require('moment');
 
-exports.listAll = function (user_id, done) {
-    let sql = "SELECT id, name, type, user_id FROM EVENTS WHERE user_id = ?";
+exports.listAll = function (userId, done) {
+    let sql = "SELECT id, name, type, userId FROM EVENTS WHERE userId = ?";
 
-    db.get().query(sql, [user_id], (err, rows) => {
+    db.get().query(sql, [userId], (err, rows) => {
         if (err) {
             return done(err);
         } else {
@@ -16,7 +16,7 @@ exports.listAll = function (user_id, done) {
 }
 
 exports.create = function (data, done) {
-    let sql = "INSERT INTO events (name, user_id, type ,create_time) VALUES ?";
+    let sql = "INSERT INTO events (name, userId, type ,createTime) VALUES ?";
     let values = [[
         data.name,
         data.id,
@@ -32,9 +32,9 @@ exports.create = function (data, done) {
     })
 }
 
-exports.select = function (event_id, done) {
+exports.select = function (userId, done) {
     let sql = "SELECT * FROM EVENTS WHERE id=?";
-    db.get().query(sql, event_id, (err, rows) => {
+    db.get().query(sql, userId, (err, rows) => {
         if (err) {
             return done(err);
         } else {
@@ -51,15 +51,15 @@ exports.update = function (data, done) {
     // Add columns that exist in Data
     if (data.name) columns.push({ name: "name", value: data.name });
     if (data.type) columns.push({ name: "type", value: data.type });
-    if (data.userId) columns.push({ name: "user_id", value: data.userId });
-    // values.push({ name: "update_time", value: moment().unix() });
+    if (data.userId) columns.push({ name: "userId", value: data.userId });
+    // values.push({ name: "updateTime", value: moment().unix() });
 
     // Add columns to be updated
     for (let column of columns) {
         sql += `${column.name} =  ?, `;
         values.push(column.value);
     }
-    sql += `update_time = ${moment().unix()} WHERE id = ?`;
+    sql += `updateTime = ${moment().unix()} WHERE id = ?`;
     db.get().query(sql, [...values, data.id], (err, rows) => {
         if (err) {
             return done(err);

@@ -47,8 +47,8 @@ exports.buildTables = (done) => {
             + "email VARCHAR(255) NOT NULL,"
             + "password VARCHAR(255) NOT NULL,"
             + "name VARCHAR(45) NOT NULL,"
-            + "create_time INT UNSIGNED NOT NULL,"
-            + "update_time INT NULL,"
+            + "createTime INT UNSIGNED NOT NULL,"
+            + "updateTime INT NULL,"
             + "PRIMARY KEY (id),"
             + "UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE)";
 
@@ -64,14 +64,14 @@ exports.buildTables = (done) => {
             + "id INT UNSIGNED NOT NULL AUTO_INCREMENT, "
             + "name VARCHAR(45) NOT NULL,"
             + "type VARCHAR(45) NOT NULL,"
-            + "create_time INT UNSIGNED NOT NULL, "
-            + "update_time INT UNSIGNED NULL, "
-            + "user_id INT UNSIGNED NOT NULL, "
+            + "createTime INT UNSIGNED NOT NULL, "
+            + "updateTime INT UNSIGNED NULL, "
+            + "userId INT UNSIGNED NOT NULL, "
             + "PRIMARY KEY (id),"
-            + "INDEX user_id_idx (user_id ASC) VISIBLE, "
+            + "INDEX userId_idx (userId ASC) VISIBLE, "
             + "UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE, "
-            + "CONSTRAINT user_id "
-            + "FOREIGN KEY (user_id) "
+            + "CONSTRAINT userId "
+            + "FOREIGN KEY (userId) "
             + "REFERENCES tablemanor.users (id) "
             + "ON DELETE CASCADE "
             + "ON UPDATE CASCADE) "
@@ -103,14 +103,14 @@ exports.buildTables = (done) => {
 // CREATE TABLE IF NOT EXISTS tablemanor.Events (
 //   event_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 //   name VARCHAR(45) NOT NULL,
-//   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-//   user_id INT NOT NULL,
+//   createTime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+//   userId INT NOT NULL,
 //   PRIMARY KEY (event_id),
-//   INDEX user_id_idx (user_id ASC) VISIBLE,
+//   INDEX userId_idx (userId ASC) VISIBLE,
 //   UNIQUE INDEX event_id_UNIQUE (event_id ASC) VISIBLE,
-//   CONSTRAINT user_id
-//     FOREIGN KEY (user_id)
-//     REFERENCES tablemanor.user (user_id)
+//   CONSTRAINT userId
+//     FOREIGN KEY (userId)
+//     REFERENCES tablemanor.user (userId)
 //     ON DELETE CASCADE
 //     ON UPDATE CASCADE)
 // ENGINE = InnoDB

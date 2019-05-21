@@ -8,5 +8,5 @@ module.exports = (app) => {
     app.route('/events/v1/event/:id')
         .get(passport.authenticate('jwt', { session: false }), Events.selectEvent)
         .put(passport.authenticate('jwt', { session: false }), Events.updateEvent)
-    //     .delete(passport.authenticate('jwt', { session: false }), Events.deleteEvent);
+        .delete(passport.authenticate('jwt', { session: false }), Events.deleteEvent);
 }

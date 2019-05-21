@@ -45,7 +45,7 @@ exports.updateEvent = function (req, res) {
 }
 
 exports.deleteEvent = function(req, res){
-    Event.update(req.params.id, (err)=>{
+    Event.delete(req.params.id, (err)=>{
         if (err){
             res.status(500).send(err);
         } else {

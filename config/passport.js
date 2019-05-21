@@ -52,7 +52,7 @@ passport.use(jwtStrategy);
 passport.use(localStrategy);
 
 passport.serializeUser(function (user, done) {
-  done(null, user.user_id);
+  done(null, user.userId);
 });
 
 

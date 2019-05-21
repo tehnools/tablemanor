@@ -84,6 +84,10 @@ exports.buildTables = (done) => {
             });
     }
 
+    const buildEventsMetaTable = ()=>{
+        const sql = ``;
+    }
+
     setUniqueKeyChecks();
     setForeignKeyChecks();
     setSQLMode();

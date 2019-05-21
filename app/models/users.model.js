@@ -49,7 +49,7 @@ exports.select = function (data ,done) {
 };
 
 exports.create = function (data, done) {
-    let sql = "INSERT INTO users (email, name, password, create_time) VALUES ?";
+    let sql = "INSERT INTO users (email, name, password, createTime) VALUES ?";
 
     let  values = [[
         data.email,
@@ -68,7 +68,7 @@ exports.create = function (data, done) {
 
 
 exports.update = function (data, userId, done) {
-    let sql = "UPDATE users SET  email=?, password=?, name=?, update_time=? WHERE id=?";
+    let sql = "UPDATE users SET  email=?, password=?, name=?, updateTime=? WHERE id=?";
     let values = [
         data.email,
         data.password,
@@ -85,7 +85,7 @@ exports.update = function (data, userId, done) {
                 email: values[0],
                 password: values[1],
                 name : values[2],
-                update_time: values[3]
+                updateTime: values[3]
             }
             return done(null, newUserData);
         }

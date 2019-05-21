@@ -68,3 +68,15 @@ exports.update = function (data, done) {
         };
     });
 }
+
+exports.delete = function(id, done){
+    let sql = "DELETE FROM events WHERE id=?";
+
+    db.get().query(sql, [id], (err)=>{
+        if (err){
+            return done(err);
+        } else {
+            return done()
+        }
+    });
+}

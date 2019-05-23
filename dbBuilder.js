@@ -108,8 +108,59 @@ exports.buildTables = (done) => {
             }
         });
     }
-        ON UPDATE CASCADE);
-        `;
+
+    const buildPatronTable = () => {
+        const sql = `CREATE TABLE IF NOT EXISTS tablemanor.Patron(
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            firstName VARCHAR(50) NOT NULL,
+            middleName VARCHAR(50) NULL,
+            lastName VARCHAR(50) NULL,
+            age INT NULL,
+            email VARCHAR(100) NULL,
+            contactable BOOLEAN,
+            eventId INT UNSIGNED NOT NULL,
+            gender ENUM('M','F'),
+            PRIMARY KEY(id),
+            UNIQUE KEY uniqueEmail (email),
+            INDEX event_id_idx (eventId ASC) VISIBLE,
+            UNIQUE INDEX id_UNIQUE(id ASC) VISIBLE,
+            CONSTRAINT event_id
+              FOREIGN KEY(eventId)
+              REFERENCES tablemanor.Events(id)
+              ON DELETE CASCADE
+              ON UPDATE CASCADE);`
+
+        db.get().query(sql, (err) => {
+            if (err) {
+                return done(err);
+            }
+        });
+    }
+
+    const buildPlacementTable = () => {
+        const sql = `CREATE TABLE IF NOT EXISTS tablemanor.Placement (
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            name VARCHAR(255) NULL,
+            patronId INT UNSIGNED NOT NULL,
+            tableId INT UNSIGNED NOT NULL,
+            PRIMARY KEY (id),
+            INDEX patronId_idx (patronId ASC) VISIBLE,
+            INDEX tableId_idx (tableId ASC) INVISIBLE,
+            UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+            CONSTRAINT patronId
+              FOREIGN KEY (patronId)
+              REFERENCES tablemanor.Patron (id)
+              ON DELETE NO ACTION
+              ON UPDATE NO ACTION,
+            CONSTRAINT tableId
+              FOREIGN KEY (tableId)
+              REFERENCES tablemanor.Tables (id)
+              ON DELETE CASCADE
+              ON UPDATE CASCADE);`
+
+        db.get().query(sql, (err) => {
+            if (err) return done(err);
+        })
     }
 
     setUniqueKeyChecks();
@@ -117,5 +168,8 @@ exports.buildTables = (done) => {
     setSQLMode();
     buildUserTable();
     buildEventsTable();
+    buildTablesTable();
+    buildPatronTable();
+    buildPlacementTable();
     return done();
 };

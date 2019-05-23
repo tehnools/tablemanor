@@ -88,21 +88,26 @@ exports.buildTables = (done) => {
         });
     }
 
-
     const buildTablesTable = () => {
-        const sql = `
-        CREATE TABLE IF NOT EXISTS tablemanor.Tables (
-        id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-        name VARCHAR(45) NOT NULL,
-        size INT NOT NULL,
-        eventId INT NOT NULL,
-        PRIMARY KEY (id),
-        INDEX eventId_idx (eventId ASC) VISIBLE,
-        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-        CONSTRAINT eventId
-        FOREIGN KEY (eventId)
-        REFERENCES tablemanor.Events (eventId)
-        ON DELETE CASCADE
+        const sql = ` CREATE TABLE IF NOT EXISTS tablemanor.Tables (
+                id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                name VARCHAR(45) NOT NULL,
+                size INT NOT NULL,
+                eventId INT UNSIGNED NOT NULL,
+                PRIMARY KEY (id),
+                INDEX eventId_idx (eventId ASC) VISIBLE,
+                UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+                CONSTRAINT eventId
+                FOREIGN KEY (eventId)
+                REFERENCES tablemanor.Events (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE);`
+        db.get().query(sql, (err) => {
+            if (err) {
+                return done(err);
+            }
+        });
+    }
         ON UPDATE CASCADE);
         `;
     }

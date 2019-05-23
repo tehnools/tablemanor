@@ -88,9 +88,6 @@ exports.buildTables = (done) => {
         });
     }
 
-    const buildEventsMetaTable = () => {
-        const sql = ``;
-    }
 
     const buildTablesTable = () => {
         const sql = `

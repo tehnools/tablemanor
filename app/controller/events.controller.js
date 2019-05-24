@@ -24,7 +24,7 @@ exports.selectEvent = function (req, res) {
 }
 
 exports.createEvent = function (req, res) {
-    Event.create(req.body, (err) => {
+    Event.create(req.user.id, req.body.event, (err) => {
         if (err) {
             res.status(500).send(err);
         } else {

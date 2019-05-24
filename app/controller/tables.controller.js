@@ -30,3 +30,13 @@ exports.selectTable = function (req, res) {
         }
     })
 }
+
+exports.deleteTable = function (req, res) {
+    Table.delete(req.params.eventId, req.params.tableId, (err) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(204).send()
+        }
+    })
+}

@@ -39,3 +39,14 @@ exports.select = function (eventId, tableId, done) {
         };
     });
 }
+
+exports.delete = function(eventId, tableId, done){
+    let sql = "DELETE FROM tables WHERE id=? AND eventId = ?";
+    db.get().query(sql, [tableId, eventId], (err)=>{
+        if (err){
+            return done(err);
+        } else {
+            return done()
+        }
+    });
+}

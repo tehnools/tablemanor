@@ -15,14 +15,34 @@ exports.listAll = function (userId, done) {
     });
 }
 
-exports.create = function (data, done) {
-    let sql = "INSERT INTO events (name, userId, type ,createTime) VALUES ?";
+exports.create = function (userId, data, done) {
+    let sql = "INSERT INTO events"
+    let columns = [
+        "name",
+        "startTime",
+        "endTime",
+        "userId",
+        "createTime"
+    ];
     let values = [[
         data.name,
-        data.id,
-        data.type,
+        data.startTime,
+        data.endTime,
+        userId,
         moment().unix()
     ]];
+
+    // Add optional values
+    if (data.type) {
+        columns.push("type");
+        values[0].push(data.type)
+    }
+    if (data.location) {
+        columns.push("location");
+        values[0].push(data.location)
+    }
+
+    sql += "(" + columns.join(",") + ")" + " VALUES ?"
     db.get().query(sql, [values], (err) => {
         if (err) {
             return done(err);
@@ -69,11 +89,11 @@ exports.update = function (data, done) {
     });
 }
 
-exports.delete = function(id, done){
+exports.delete = function (id, done) {
     let sql = "DELETE FROM events WHERE id=?";
 
-    db.get().query(sql, [id], (err)=>{
-        if (err){
+    db.get().query(sql, [id], (err) => {
+        if (err) {
             return done(err);
         } else {
             return done()

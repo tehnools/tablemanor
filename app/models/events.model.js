@@ -4,8 +4,8 @@ const db = require('../../config/db.js');
 const moment = require('moment');
 
 exports.listAll = function (userId, done) {
-    let sql = "SELECT id, name, type, userId FROM EVENTS WHERE userId = ?";
-
+    let sql =
+    `SELECT events.name AS eventName, events.type, events.location, events.startTime, events.endTime, users.name AS creatorName FROM events LEFT JOIN users ON events.userId = users.id AND events.id = ? ORDER BY events.createTime`;
     db.get().query(sql, [userId], (err, rows) => {
         if (err) {
             return done(err);

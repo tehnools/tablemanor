@@ -1,5 +1,6 @@
 // Standard Library Imports
 const express = require('express');
+const router = express.Router();
 const cors = require('cors');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -21,9 +22,10 @@ module.exports = function () {
 
   
   // Routes
-  require("../app/routes/users.routes")(app);
-  require("../app/routes/auth.routes")(app);
-  require("../app/routes/events.routes")(app);
+  require("../app/routes/users.routes")(router);
+  require("../app/routes/auth.routes")(router);
+  require("../app/routes/events.routes")(router);
+  app.use('/api/v1', router);
   require('./passport');
 
   // require("../app/routes/home.routes")(app);

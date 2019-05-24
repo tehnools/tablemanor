@@ -19,3 +19,14 @@ exports.listTables = function (req, res) {
         }
     })
 }
+
+exports.selectTable = function (req, res) {
+    Table.select(req.params.eventId, req.params.tableId, (err, result) => {
+        console.log(result)
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    })
+}

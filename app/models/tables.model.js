@@ -28,3 +28,14 @@ exports.create = function (eventId, data, done) {
         }
     })
 }
+
+exports.select = function (eventId, tableId, done) {
+    let sql = "SELECT id, name, size, eventId FROM tables WHERE id=? AND eventId = ?";
+    db.get().query(sql, [eventId, tableId], (err, rows) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done(null, rows[0])
+        };
+    });
+}

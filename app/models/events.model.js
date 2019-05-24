@@ -33,7 +33,7 @@ exports.create = function (data, done) {
 }
 
 exports.select = function (userId, done) {
-    let sql = "SELECT * FROM EVENTS WHERE id=?";
+    let sql = "SELECT name, type, location, startTime, endTime, userId FROM EVENTS WHERE id=?";
     db.get().query(sql, userId, (err, rows) => {
         if (err) {
             return done(err);

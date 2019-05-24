@@ -1,5 +1,6 @@
 const Table = require('../models/tables.model.js');
 
+
 exports.createTable = function (req, res) {
     Table.create(req.params.eventId, req.body.table, (err) => {
         if (err) {
@@ -9,6 +10,7 @@ exports.createTable = function (req, res) {
         }
     })
 }
+
 exports.listTables = function (req, res) {
     Table.listAll(req.params.eventId, (err, result) => {
         console.log(result)

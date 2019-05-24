@@ -9,3 +9,13 @@ exports.createTable = function (req, res) {
         }
     })
 }
+exports.listTables = function (req, res) {
+    Table.listAll(req.params.eventId, (err, result) => {
+        console.log(result)
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    })
+}

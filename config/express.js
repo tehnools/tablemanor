@@ -25,6 +25,7 @@ module.exports = function () {
   require("../app/routes/users.routes")(router);
   require("../app/routes/auth.routes")(router);
   require("../app/routes/events.routes")(router);
+  require("../app/routes/tables.routes")(router);
   app.use('/api/v1', router);
   require('./passport');
 

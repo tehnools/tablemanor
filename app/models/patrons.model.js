@@ -16,3 +16,31 @@ exports.listAll = function (eventId, done) {
         }
     });
 }
+
+exports.create = function (eventId, data, done) {
+    let sql = "INSERT INTO patron (firstName, eventId, middleName, lastName, age, email, contactable, gender) VALUES ?";
+
+    // Sanitization
+    if (data.gender.toUpperCase() !== 'M' && data.gender.toUpperCase() !== "F") return done(errorBadRequestGender);
+    if (!data.firstName) return done(errorBadRequestFirstName);
+    if (!data.email && data.contactable) return done(errorBadRequestContactable);
+
+    let values = [[
+        data.firstName,
+        eventId,
+        data.middleName,
+        data.lastName,
+        data.age,
+        data.email,
+        data.contactable,
+        data.gender
+    ]];
+
+    db.get().query(sql, [values], (err) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done();
+        }
+    })
+}

@@ -4,3 +4,4 @@ const passport = require('passport');
 module.exports = (app) => {
     app.route('/event/:eventId/patrons')
         .get(passport.authenticate('jwt', { session: false }), Patrons.listPatrons)
+        .post(passport.authenticate('jwt', { session: false }), Patrons.createPatron);

@@ -20,3 +20,14 @@ exports.listPatrons = function (req, res) {
         }
     })
 }
+
+exports.selectPatron = function (req, res) {
+    Patron.select(req.params.eventId, req.params.patronId, (err, result) => {
+        console.log(result)
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    })
+}

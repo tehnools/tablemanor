@@ -44,3 +44,14 @@ exports.create = function (eventId, data, done) {
         }
     })
 }
+
+exports.select = function (eventId, patronId, done) {
+    let sql = "SELECT firstName, eventId, middleName, lastName, age, email, contactable, gender FROM patron WHERE id=? AND eventId = ?";
+    db.get().query(sql, [eventId, patronId], (err, rows) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done(null, rows[0])
+        };
+    });
+}

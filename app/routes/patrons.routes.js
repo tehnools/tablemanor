@@ -1,2 +1,6 @@
 const Patrons = require("../controller/patrons.controller");
 const passport = require('passport');
+
+module.exports = (app) => {
+    app.route('/event/:eventId/patrons')
+        .get(passport.authenticate('jwt', { session: false }), Patrons.listPatrons)

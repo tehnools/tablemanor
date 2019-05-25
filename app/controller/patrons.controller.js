@@ -42,3 +42,13 @@ exports.updatePatron = function (req, res) {
         }
     })
 }
+
+exports.deletePatron = function (req, res) {
+    Patron.delete(req.params.eventId, req.params.patronId, (err) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(204).send()
+        }
+    })
+}

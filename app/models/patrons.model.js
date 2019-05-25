@@ -4,6 +4,7 @@ const errorBadRequestGender = { code: 400, message: "Bad Request - Your request 
 const errorBadRequestFirstName = { code: 400, message: "Bad Request - Missing parameters Firstname" }
 const errorBadRequestContactable = { code: 400, message: "Bad Request - Missing parameters Email when person is Contactble" }
 
+
 exports.listAll = function (eventId, done) {
     let sql = "SELECT patron.id AS patronId, firstName, middleName, lastName, email, tables.name AS assignedTable FROM patron LEFT JOIN tables ON patron.eventId = tables.eventId AND patron.eventId = ?";
     // let sql = "SELECT tables.id, tables.name AS tableName, size, eventId, events.name AS eventName FROM tables LEFT JOIN events ON tables.eventId = events.id AND eventId = ?";
@@ -97,5 +98,17 @@ exports.update = function (eventId, patronId, data, done) {
         } else {
             return done(null, rows[0])
         };
+    });
+}
+
+exports.delete = function (eventId, patronId, done) {
+    let sql = "DELETE FROM patron WHERE patron.id=? AND patron.eventId = ?";
+    console.log(eventId, patronId)
+    db.get().query(sql, [patronId, eventId], (err) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done()
+        }
     });
 }

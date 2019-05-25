@@ -55,3 +55,47 @@ exports.select = function (eventId, patronId, done) {
         };
     });
 }
+
+exports.update = function (eventId, patronId, data, done) {
+    let sql = "UPDATE patron SET ";
+    let columns = [];
+    let values = [];
+
+    if (data.firstName) {
+        columns.push("firstName = ?");
+        values.push(data.firstName);
+    }
+    if (data.middleName) {
+        columns.push("middleName = ?");
+        values.push(data.middleName);
+    }
+    if (data.lastName) {
+        columns.push("lastName = ?");
+        values.push(data.lastName);
+    }
+    if (data.age) {
+        columns.push("age = ?");
+        values.push(data.age);
+    }
+    if (data.email) {
+        columns.push("email = ?");
+        values.push(data.email);
+    }
+    if (data.contactable !== undefined) {
+        columns.push("contactable = ?");
+        values.push(data.contactable);
+    }
+    if (data.gender) {
+        columns.push("gender = ?");
+        values.push(data.gender);
+    }
+
+    sql += columns.join(",") + " WHERE patron.id = ? AND eventId = ?"
+    db.get().query(sql, [...values, patronId, eventId], (err, rows) => {
+        if (err) {
+            return done(err);
+        } else {
+            return done(null, rows[0])
+        };
+    });
+}

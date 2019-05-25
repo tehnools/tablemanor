@@ -31,3 +31,14 @@ exports.selectPatron = function (req, res) {
         }
     })
 }
+
+
+exports.updatePatron = function (req, res) {
+    Patron.update(req.params.eventId, req.params.patronId, req.body.patron, (err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    })
+}

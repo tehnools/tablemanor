@@ -103,7 +103,6 @@ exports.update = function (eventId, patronId, data, done) {
 
 exports.delete = function (eventId, patronId, done) {
     let sql = "DELETE FROM patron WHERE patron.id=? AND patron.eventId = ?";
-    console.log(eventId, patronId)
     db.get().query(sql, [patronId, eventId], (err) => {
         if (err) {
             return done(err);

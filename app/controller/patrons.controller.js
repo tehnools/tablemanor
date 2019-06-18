@@ -1,6 +1,5 @@
 const Patron = require('../models/patrons.model.js');
 
-
 exports.createPatron = function (req, res) {
     Patron.create(req.params.eventId, req.body.patron, (err) => {
         if (err) {
